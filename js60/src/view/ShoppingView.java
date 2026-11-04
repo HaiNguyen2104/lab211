@@ -58,11 +58,20 @@ public class ShoppingView {
         System.out.println("this is total of bill:" + total);
     }
 
-    public void displayPayResult(boolean canPay) {
-        if (canPay) {
-            System.out.println("You can buy it.");
-        } else {
-            System.out.println("You can't buy it.");
+    /**
+     * Tạo thông báo kết quả thanh toán từ trạng thái đủ tiền hay không.
+     *
+     * @param isEnough true nếu ví đủ tiền
+     * @return Thông báo hiển thị cho người dùng
+     */
+    public String getPayMessage(boolean isEnough) {
+        if (isEnough) {
+            return "You can buy it.";
         }
+        return "You can't buy it.";
+    }
+
+    public void displayPayResult(String message) {
+        System.out.println(message);
     }
 }

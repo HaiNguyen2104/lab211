@@ -38,8 +38,35 @@ public class ShoppingController {
         Person person = new Person(new Wallet(walletAmount));
 
         // Function 2: tính tổng và kiểm tra thanh toán
-        int total = person.getWallet().calcTotal(bills);
+        int total = calcTotal(bills);
+        boolean isEnough = payMoney(person.getWallet(), total);
+        String canPay = view.getPayMessage(isEnough);
         view.displayTotal(total);
-        view.displayPayResult(person.getWallet().payMoney(total));
+        view.displayPayResult(canPay);
+    }
+
+    /**
+     * Tính tổng giá trị các hóa đơn.
+     *
+     * @param bills Mảng giá trị các hóa đơn
+     * @return Tổng số tiền của các hóa đơn
+     */
+    private int calcTotal(int[] bills) {
+        int total = 0;
+        for (int bill : bills) {
+            total += bill;
+        }
+        return total;
+    }
+
+    /**
+     * Kiểm tra số tiền trong ví có đủ để thanh toán hay không.
+     *
+     * @param wallet Ví của người dùng
+     * @param total Tổng số tiền cần thanh toán
+     * @return true nếu đủ tiền, false nếu không đủ
+     */
+    private boolean payMoney(Wallet wallet, int total) {
+        return wallet.getAmount() >= total;
     }
 }
