@@ -26,17 +26,19 @@ public class Validation {
      * @return Số nguyên hợp lệ
      */
     public int checkInputInt(String msg, int min) {
-        while (true) {
+        // Giá trị khởi tạo nhỏ hơn min để vòng lặp luôn chạy ít nhất một lần
+        int result = min - 1;
+        while (result < min) {
             System.out.print(msg);
             try {
-                int result = Integer.parseInt(in.nextLine().trim());
-                if (result >= min) {
-                    return result;
+                result = Integer.parseInt(in.nextLine().trim());
+                if (result < min) {
+                    System.out.println("Value must be greater than or equal to " + min + "!");
                 }
-                System.out.println("Value must be greater than or equal to " + min + "!");
             } catch (NumberFormatException e) {
                 System.out.println("Value must be a valid integer!");
             }
         }
+        return result;
     }
 }

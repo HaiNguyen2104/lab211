@@ -58,21 +58,24 @@ public class ShapeView {
      * @return Mảng 3 phần tử chứa độ dài 3 cạnh (sideA, sideB, sideC)
      */
     public double[] inputTriangleSides() {
-        // Vòng lặp yêu cầu nhập lại nếu 3 cạnh không tạo thành tam giác hợp lệ
-        while (true) {
+        // Ba cạnh ban đầu bằng 0 (chưa hợp lệ) để vòng lặp luôn chạy ít nhất một lần
+        double a = 0;
+        double b = 0;
+        double c = 0;
+
+        // Lặp lại cho đến khi 3 cạnh tạo thành tam giác hợp lệ
+        while (!validation.isValidTriangle(a, b, c)) {
 
             // Gọi Validation lấy giá trị 3 cạnh
-            double a = validation.checkInputDouble("Please input side A of Triangle: ");
-            double b = validation.checkInputDouble("Please input side B of Triangle: ");
-            double c = validation.checkInputDouble("Please input side C of Triangle: ");
-
-            // Gọi Validation kiểm tra bất đẳng thức tam giác
-            if (validation.isValidTriangle(a, b, c)) {
-                return new double[]{a, b, c};
-            }
+            a = validation.checkInputDouble("Please input side A of Triangle: ");
+            b = validation.checkInputDouble("Please input side B of Triangle: ");
+            c = validation.checkInputDouble("Please input side C of Triangle: ");
 
             // In thông báo lỗi nếu 3 cạnh không hợp lệ
-            System.out.println("Invalid triangle sides! The sum of any two sides must be greater than the third side.");
+            if (!validation.isValidTriangle(a, b, c)) {
+                System.out.println("Invalid triangle sides! The sum of any two sides must be greater than the third side.");
+            }
         }
+        return new double[]{a, b, c};
     }
 }

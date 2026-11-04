@@ -25,8 +25,11 @@ public class Validation {
      * @return Số thực hợp lệ lớn hơn 0
      */
     public double checkInputDouble(String msg) {
-        // Vòng lặp while vô hạn bắt buộc người dùng nhập đúng định dạng
-        while (true) {
+        // Giá trị khởi tạo không hợp lệ (0) để vòng lặp luôn chạy ít nhất một lần
+        double result = 0;
+
+        // Lặp cho đến khi nhập được số lớn hơn 0 (viết !(result > 0) để loại cả NaN)
+        while (!(result > 0)) {
 
             // In thông báo yêu cầu nhập ra màn hình
             System.out.println(msg);
@@ -34,21 +37,19 @@ public class Validation {
             try {
 
                 // Đọc chuỗi nhập vào và ép kiểu sang số thực double
-                double result = Double.parseDouble(SCANNER.nextLine().trim());
-
-                // Kiểm tra điều kiện giá trị phải lớn hơn 0
-                if (result > 0) {
-                    return result;
-                }
+                result = Double.parseDouble(SCANNER.nextLine().trim());
 
                 // In thông báo lỗi khi nhập giá trị nhỏ hơn hoặc bằng 0
-                System.out.println("Value must be greater than 0!");
+                if (!(result > 0)) {
+                    System.out.println("Value must be greater than 0!");
+                }
             } catch (NumberFormatException e) {
 
                 // In thông báo lỗi khi nhập chuỗi không phải là số
                 System.out.println("Value must be a valid number!");
             }
         }
+        return result;
     }
 
     /**
