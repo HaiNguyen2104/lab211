@@ -27,12 +27,12 @@ public class Validation {
      */
     public int checkInputInt(String msg, int min) {
         // Giá trị khởi tạo nhỏ hơn min để vòng lặp luôn chạy ít nhất một lần
-        int result = 0;
+        int result = min - 1;
         while (result < min) {
             System.out.println(msg);
             try {
                 result = Integer.parseInt(in.nextLine().trim());
-                if (result <= min) {
+                if (result < min) {
                     System.out.println("Value must be greater than or equal to " + min + "!");
                 }
             } catch (NumberFormatException e) {
